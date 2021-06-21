@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="clr-namespace:System.ComponentModel.Design;assembly=System"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:st="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
+             xmlns:local="clr-namespace:StartVacation.Utils.CustomRenderer"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             st:SharedTransitionNavigationPage.TransitionSelectedGroup="products"
+             mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
+             x:Class="StartVacation.MainPage">
+
+    <Grid BackgroundColor="#F9F9F9"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"
+          Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Frame HasShadow="True"
+               HorizontalOptions="FillAndExpand"
+               Margin="0,20"
+               Padding="0"
+               CornerRadius="8"
+               HeightRequest="40">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Source="search.png"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="20,0" />
+                <local:CustomEntry Grid.Column="1"
+                                   Placeholder="Search"
+                                   FontSize="15"
+                                   Text="{Binding SearchQuery}"
+                                   FontFamily="ThemeFontRegular"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="Center" />
+                <Image Grid.Column="2"
+                       Source="filter.png"
+                       WidthRequest="20"
+                       HeightRequest="20"
+                       Margin="20,0" />
+            </Grid>
+        </Frame>
+        <StackLayout Grid.Row="1">
+            <Label Text="Property Type"
+                   TextColor="#515151"
+                   FontSize="15"
+                   FontFamily="ThemeFontBold" />
+            <ScrollView Orientation="Horizontal"
+                        HorizontalScrollBarVisibility="Never">
+                <StackLayout Orientation="Horizontal"
+                             Spacing="10"
+                             BindableLayout.ItemsSource="{Binding PropertyTypeList}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <pv:PancakeView x:Name="PropertyContainer" 
+                                            CornerRadius="15"
+                                            Margin="5,10,5,10"
+                                            BackgroundColor="White">
+                                <pv:PancakeView.Shadow>
+                                    <pv:DropShadow Color="Gray" BlurRadius="3" />
+                                </pv:PancakeView.Shadow>
+                                <pv:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="SelectedType" />
+                                </pv:PancakeView.GestureRecognizers>
+    
+                                <Label x:Name="PropertyTypeName"
+                                       Padding="20,5"
+                                       Text="{Binding TypeName}"
+                                       TextColor="#707070"
+                                       FontSize="15"
+                                       FontFamily="ThemeFontRegular" />
+                            </pv:PancakeView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding PropertyList}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout >
+                        <pv:PancakeView HeightRequest="200"
+                                        Margin="5,10"
+                                        CornerRadius="6"
+                                        BackgroundColor="White">
+                            <pv:PancakeView.Shadow>
+                                <pv:DropShadow Color="Gray"  BlurRadius="3"/>
+                            </pv:PancakeView.Shadow>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="PropertySelected" />
+                                </Grid.GestureRecognizers>
+                                <Image HeightRequest="115"
+                                       Aspect="AspectFill"
+                                       Source="{Binding Image}"
+                                       st:Transition.Name="PropertyImage" />
+                                <ImageButton Source="bookmark.png"
+                                             HorizontalOptions="End"
+                                             Margin="12"
+                                             HeightRequest="24"
+                                             BackgroundColor="Transparent"
+                                             VerticalOptions="Start"
+                                             Clicked="PropertyBookMarkSelected" />
+                                <Grid VerticalOptions="End"
+                                      Margin="15">
+                                    <pv:PancakeView CornerRadius="13"
+                                                    Padding="15,5"
+                                                    BackgroundColor="Black"
+                                                    Opacity="0.7"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Start">
+                                        <StackLayout Orientation="Horizontal"
+                                                     Spacing="5"
+                                                     HorizontalOptions="Start">
+                                            <Image HeightRequest="14"
+                                                   WidthRequest="14"
+                                                   Source="location.png"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Start" />
+                                            <Label FontFamily="ThemeFontRegular"
+                                                   VerticalOptions="Center"
+                                                   Text="{Binding Location}"
+                                                   FontSize="12"
+                                                   TextColor="White" />
+
+                                        </StackLayout>
+                                    </pv:PancakeView>
+                                </Grid>
+                                <StackLayout Grid.Row="1"
+                                             Spacing="5"
+                                             VerticalOptions="Center"
+                                             Margin="15,5">
+                                    <Label Text="{Binding PropertyName}"
+                                           FontSize="18"
+                                           Margin="0,0,0,4"
+                                           FontFamily="ThemeFontBold"
+                                           TextColor="#515151" />
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="3"
+                                                 Spacing="15">
+                                        <StackLayout Orientation="Horizontal"
+                                                     HorizontalOptions="CenterAndExpand"
+                                                     Spacing="10">
+                                            <Image WidthRequest="16"
+                                                   Source="bed.png" />
+                                            <Label Text="{Binding Bed}"
+                                                   FontSize="12"
+                                                   FontFamily="ThemeFontRegular"
+                                                   TextColor="#707070" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal"
+                                                     HorizontalOptions="CenterAndExpand"
+                                                     Spacing="10">
+                                            <Image WidthRequest="16"
+                                                   Source="shower.png" />
+                                            <Label Text="{Binding Bath}"
+                                                   FontSize="12"
+                                                   FontFamily="ThemeFontRegular"
+                                                   TextColor="#707070" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal"
+                                                     HorizontalOptions="CenterAndExpand"
+                                                     Spacing="10">
+                                            <Image WidthRequest="16"
+                                                   Source="peso.png" />
+                                            <Label Text="{Binding Price}"
+                                                   FontSize="12"
+                                                   FontFamily="ThemeFontRegular"
+                                                   TextColor="#707070" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+
+                        </pv:PancakeView>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

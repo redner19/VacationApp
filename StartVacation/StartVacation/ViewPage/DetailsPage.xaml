@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:st="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
+             x:Class="StartVacation.ViewPage.DetailsPage">
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Image Source="{Binding Property.Image}"
+               Aspect="AspectFill"
+               st:Transition.Name="PropertyImage"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand" />
+        
+        <ImageButton Source="back.png"
+                     HeightRequest="45"
+                     WidthRequest="45"
+                     Padding="12"
+                     Margin="15,15,0,0"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Start"
+                     Command="{Binding GoBack}"
+                     CornerRadius="25"
+                     Opacity="0.7"
+                     BackgroundColor="Black" />
+        <pv:PancakeView Grid.Row="1"
+                        x:Name="DetailsView"
+                        CornerRadius="30,30,0,0"
+                        Padding="35,35,35,0"
+                        VerticalOptions="FillAndExpand"
+                        BackgroundColor="White"
+                        Margin="0,-40,0,0">
+            <ScrollView VerticalScrollBarVisibility="Never">
+                <StackLayout Spacing="15" HorizontalOptions="FillAndExpand">
+                    <Grid HorizontalOptions="Fill">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Orientation="Vertical">
+                          
+                            <Label FontFamily="ThemeFontMedium"
+                                   FontSize="22"
+                                   TextColor="Black"
+                                   Text="{Binding Property.PropertyName}" />
+                            <StackLayout  Orientation="Horizontal">
+                                <Image HeightRequest="12"
+                                       WidthRequest="12"
+                                       Source="address.png"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       FontFamily="ThemeFontRegular"
+                                       FontSize="12"
+                                       Text="{Binding Property.Address}" />
+                            </StackLayout>
+                        </StackLayout>
+                       
+
+                        <Image Grid.Column="1"
+                               HeightRequest="35"
+                               WidthRequest="35"
+                               Source="direction.png"
+                               VerticalOptions="Center" />
+
+                    </Grid>
+                    <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="15">
+                        <StackLayout Orientation="Horizontal"
+                                     VerticalOptions="Center"
+                                     Spacing="6">
+
+                            <Image Grid.Column="1"
+                                   HeightRequest="35"
+                                   WidthRequest="35"
+                                   Source="peso.png"
+                                   VerticalOptions="Center" />
+
+                            <Label Text="{Binding CurrentPrice , Mode=OneWay}"
+                                   FontSize="18"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold"
+                                   FontFamily="ThemeFontRegular" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="EndAndExpand">
+                            <Label Text="Days" FontSize="18" VerticalOptions="Center" FontFamily="ThemeFontRegular" />
+                            <Grid  VerticalOptions="CenterAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ImageButton BackgroundColor="Transparent"
+                                             CornerRadius="6"
+                                             Source="minus.png"
+                                             HorizontalOptions="Center"
+                                             Padding="8"
+                                             Command="{Binding Subtract}"
+                                             BorderColor="LightGray"
+                                             BorderWidth="2"
+                                             WidthRequest="36" />
+                                <Label Text="{Binding CountDays , Mode=OneWay}"
+                                       Grid.Column="1"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       FontSize="17"
+                                       TextColor="Black" />
+                                <ImageButton BackgroundColor="Transparent"
+                                             Grid.Column="2"
+                                             Padding="8"
+                                             CornerRadius="6"
+                                             Source="add.png"
+                                             Command="{Binding Add}"
+                                             HorizontalOptions="Center"
+                                             BorderColor="LightGray"
+                                             BorderWidth="2"
+                                             WidthRequest="36" />
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="8"
+                                 Spacing="15">
+                        <StackLayout  Orientation="Horizontal"
+                                      HorizontalOptions="CenterAndExpand"
+                                      Spacing="10">
+                            <Image WidthRequest="16"
+                                   Source="bed.png" />
+                            <Label Text="{Binding Property.Bed}"
+                                   FontSize="12"
+                                   FontFamily="ThemeFontRegular"
+                                   TextColor="#707070" />
+                        </StackLayout>
+                        <StackLayout  Orientation="Horizontal"
+                                      HorizontalOptions="CenterAndExpand"
+                                      Spacing="10">
+                            <Image WidthRequest="16"
+                                   Source="shower.png" />
+                            <Label Text="{Binding Property.Bath}"
+                                   FontSize="12"
+                                   FontFamily="ThemeFontRegular"
+                                   TextColor="#707070" />
+                        </StackLayout>
+                        <StackLayout  Orientation="Horizontal"
+                                      HorizontalOptions="CenterAndExpand"
+                                      Spacing="10">
+                            <Image WidthRequest="16"
+                                   Source="square.png" />
+                            <Label Text="{Binding Property.Space}"
+                                   FontSize="12"
+                                   FontFamily="ThemeFontRegular"
+                                   TextColor="#707070" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout>
+                        <BoxView BackgroundColor="Gray"
+                                 Opacity="0.2"
+                                 HeightRequest="1" />
+                        <ScrollView VerticalScrollBarVisibility="Never">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="30">
+                                <StackLayout Orientation="Vertical">
+                                    <ImageButton   Source="phone.png"
+                                                   HeightRequest="50"
+                                                   WidthRequest="50"
+                                                   Padding="12"
+                                                   Margin="0,12,0,0"
+                                                   Command="{Binding GoToPhone}"
+                                                   CornerRadius="25"
+                                                   Opacity="0.7"
+                                                   BackgroundColor="LightGray" />
+                                    <Label Text="Call"
+                                           FontSize="14"
+                                           FontFamily="ThemeFontMedium"
+                                           TextColor="#8D8D8D"
+                                           HorizontalTextAlignment="Center" />
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical">
+                                    <ImageButton   Source="email.png"
+                                                   HeightRequest="50"
+                                                   WidthRequest="50"
+                                                   Padding="12"
+                                                   Margin="0,12,0,0"
+                                                   Command="{Binding GoToEmail}"
+                                                   CornerRadius="25"
+                                                   Opacity="0.7"
+                                                   BackgroundColor="LightGray" />
+                                    <Label Text="Email"
+                                           FontFamily="ThemeFontMedium"
+                                           FontSize="14"
+                                           TextColor="#8D8D8D"
+                                           HorizontalTextAlignment="Center" />
+                                </StackLayout>
+
+                                <StackLayout Orientation="Vertical">
+                                    <ImageButton   Source="map.png"
+                                                   HeightRequest="50"
+                                                   WidthRequest="50"
+                                                   Padding="12"
+                                                   Margin="0,12,0,0"
+                                                   Command="{Binding GoToMap}"
+                                                   CornerRadius="25"
+                                                   Opacity="0.7"
+                                                   BackgroundColor="LightGray" />
+                                    <Label Text="Map"
+                                           FontFamily="ThemeFontMedium"
+                                           FontSize="14"
+                                           TextColor="#8D8D8D"
+                                           HorizontalTextAlignment="Center" />
+                                </StackLayout>
+
+                                <StackLayout Orientation="Vertical">
+                                    <ImageButton   Source="more.png"
+                                                   HeightRequest="50"
+                                                   WidthRequest="50"
+                                                   Padding="12"
+                                                   Margin="0,12,0,0"
+                                                   Command="{Binding GoToMore}"
+                                                   CornerRadius="25"
+                                                   Opacity="0.7"
+                                                   BackgroundColor="LightGray" />
+                                    <Label Text="More"
+                                           FontFamily="ThemeFontMedium"
+                                           FontSize="14"
+                                           TextColor="#8D8D8D"
+                                           HorizontalTextAlignment="Center" />
+                                </StackLayout>
+
+                            </StackLayout>
+                        </ScrollView>
+                        <BoxView BackgroundColor="Gray"
+                                 Opacity="0.2"
+                                 Margin="0,12,0,0"
+                                 HeightRequest="1" />
+                    </StackLayout>
+                    <Label Text="Details" FontSize="16" FontFamily="ThemeFontBold" />
+                    <Label Text="{Binding Property.Details}"
+                           FontSize="15"
+                           FontFamily="ThemeFontRegular"
+                           TextColor="#515151" />
+                </StackLayout>
+            </ScrollView>
+           </pv:PancakeView>
+        <pv:PancakeView Grid.Row="2"
+                        HeightRequest="50"
+                        BackgroundColor="#FF4157">
+            <pv:PancakeView.GestureRecognizers>
+            <TapGestureRecognizer Tapped="BookNow"  />
+            </pv:PancakeView.GestureRecognizers>
+
+                <Label Text="Book Now"
+                       TextColor="White"
+                       FontSize="15"
+                       FontFamily="ThemeFontBold"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+        </pv:PancakeView>
+    </Grid>
+</ContentPage>
